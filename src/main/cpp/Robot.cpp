@@ -48,10 +48,10 @@ void Robot::RobotInit() {
  */
 void Robot::RobotPeriodic() {
   frc::SmartDashboard::PutNumber("Left Position", mLeftLeader.GetSelectedSensorPosition() / cpr);
-  frc::SmartDashboard::PutNumber("Left Rate", mLeftLeader.GetSelectedSensorPosition() / cpr / 0.1);
+  frc::SmartDashboard::PutNumber("Left Rate", mLeftLeader.GetSelectedSensorVelocity() / cpr / 0.1);
 
   frc::SmartDashboard::PutNumber("Right Position", mRightLeader.GetSelectedSensorPosition() / cpr);
-  frc::SmartDashboard::PutNumber("Right Rate", mRightLeader.GetSelectedSensorPosition() / cpr / 0.1);
+  frc::SmartDashboard::PutNumber("Right Rate", mRightLeader.GetSelectedSensorVelocity() / cpr / 0.1);
 
 }
 
