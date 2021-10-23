@@ -5,6 +5,7 @@
 #pragma once
 
 #include <string>
+#include <memory>
 
 #include <ctre/Phoenix.h>
 
@@ -30,10 +31,10 @@ class Robot : public frc::TimedRobot {
   const std::string kAutoNameDefault = "Default";
   const std::string kAutoNameCustom = "My Auto";
   std::string m_autoSelected;
-  WPI_TalonFX mLeftLeader{20};
-  WPI_TalonFX mLeftFollower{21};
-  WPI_TalonFX mRightLeader{22};
-  WPI_TalonFX mRightFollower{23};
+  std::unique_ptr<WPI_TalonFX> mLeftLeader;
+  std::unique_ptr<WPI_TalonFX> mLeftFollower;
+  std::unique_ptr<WPI_TalonFX> mRightLeader;
+  std::unique_ptr<WPI_TalonFX> mRightFollower;
   const double cpr = 2048.0 * 5;
 
 };

@@ -11,31 +11,36 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 
 void Robot::RobotInit() {
-  mLeftLeader.ConfigFactoryDefault();
-  mLeftLeader.SetInverted(true);
-  mLeftLeader.SetNeutralMode(motorcontrol::NeutralMode::Brake);
+  mLeftLeader = std::make_unique<WPI_TalonFX>(20);
+  mLeftFollower = std::make_unique<WPI_TalonFX>(21);
+  mRightLeader = std::make_unique<WPI_TalonFX>(22);
+  mRightFollower = std::make_unique<WPI_TalonFX>(23);
 
-  mLeftFollower.ConfigFactoryDefault();
-  mLeftFollower.SetInverted(true);
-  mLeftFollower.SetNeutralMode(motorcontrol::NeutralMode::Brake);
+  mLeftLeader->ConfigFactoryDefault();
+  mLeftLeader->SetInverted(true);
+  mLeftLeader->SetNeutralMode(motorcontrol::NeutralMode::Brake);
+
+  mLeftFollower->ConfigFactoryDefault();
+  mLeftFollower->SetInverted(true);
+  mLeftFollower->SetNeutralMode(motorcontrol::NeutralMode::Brake);
   
-  mLeftLeader.ConfigSelectedFeedbackSensor(FeedbackDevice::IntegratedSensor);
-  mLeftLeader.SetSensorPhase(true);
-  mLeftLeader.ConfigVelocityMeasurementWindow(5);
-  mLeftLeader.ConfigVelocityMeasurementPeriod(motorcontrol::VelocityMeasPeriod::Period_100Ms);
+  mLeftLeader->ConfigSelectedFeedbackSensor(FeedbackDevice::IntegratedSensor);
+  mLeftLeader->SetSensorPhase(true);
+  mLeftLeader->ConfigVelocityMeasurementWindow(5);
+  mLeftLeader->ConfigVelocityMeasurementPeriod(motorcontrol::VelocityMeasPeriod::Period_100Ms);
 
-  mRightLeader.ConfigFactoryDefault();
-  mRightLeader.SetInverted(false);
-  mRightLeader.SetNeutralMode(motorcontrol::NeutralMode::Brake);
+  mRightLeader->ConfigFactoryDefault();
+  mRightLeader->SetInverted(false);
+  mRightLeader->SetNeutralMode(motorcontrol::NeutralMode::Brake);
 
-  mRightFollower.ConfigFactoryDefault();
-  mRightFollower.SetInverted(false);
-  mRightFollower.SetNeutralMode(motorcontrol::NeutralMode::Brake);
+  mRightFollower->ConfigFactoryDefault();
+  mRightFollower->SetInverted(false);
+  mRightFollower->SetNeutralMode(motorcontrol::NeutralMode::Brake);
   
-  mRightLeader.ConfigSelectedFeedbackSensor(FeedbackDevice::IntegratedSensor);
-  mRightLeader.SetSensorPhase(false);
-  mRightLeader.ConfigVelocityMeasurementWindow(5);
-  mRightLeader.ConfigVelocityMeasurementPeriod(motorcontrol::VelocityMeasPeriod::Period_100Ms);
+  mRightLeader->ConfigSelectedFeedbackSensor(FeedbackDevice::IntegratedSensor);
+  mRightLeader->SetSensorPhase(false);
+  mRightLeader->ConfigVelocityMeasurementWindow(5);
+  mRightLeader->ConfigVelocityMeasurementPeriod(motorcontrol::VelocityMeasPeriod::Period_100Ms);
 }
 
 /**
@@ -47,11 +52,11 @@ void Robot::RobotInit() {
  * LiveWindow and SmartDashboard integrated updating.
  */
 void Robot::RobotPeriodic() {
-  frc::SmartDashboard::PutNumber("Left Position", mLeftLeader.GetSelectedSensorPosition() / cpr);
-  frc::SmartDashboard::PutNumber("Left Rate", mLeftLeader.GetSelectedSensorVelocity() / cpr / 0.1);
+  frc::SmartDashboard::PutNumber("Left Position", mLeftLeader->GetSelectedSensorPosition() / cpr);
+  frc::SmartDashboard::PutNumber("Left Rate", mLeftLeader->GetSelectedSensorVelocity() / cpr / 0.1);
 
-  frc::SmartDashboard::PutNumber("Right Position", mRightLeader.GetSelectedSensorPosition() / cpr);
-  frc::SmartDashboard::PutNumber("Right Rate", mRightLeader.GetSelectedSensorVelocity() / cpr / 0.1);
+  frc::SmartDashboard::PutNumber("Right Position", mRightLeader->GetSelectedSensorPosition() / cpr);
+  frc::SmartDashboard::PutNumber("Right Rate", mRightLeader->GetSelectedSensorVelocity() / cpr / 0.1);
 
 }
 
